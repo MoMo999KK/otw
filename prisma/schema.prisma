@@ -1,7 +1,7 @@
 datasource db {
-  provider     = "mysql"
+  provider     = "postgresql"
   url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  
 }
 
 generator client {
@@ -50,7 +50,7 @@ model Stream {
 
   @@index([userId])
   @@index([ingressId])
-  @@fulltext([name])
+  
 }
 
 model Follow {
