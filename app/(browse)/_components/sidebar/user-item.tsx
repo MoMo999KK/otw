@@ -14,12 +14,14 @@ interface UserItemProps {
   username: string;
   imageUrl: string;
   isLive?: boolean;
+  isOnline?: boolean;
 };
 
 export const UserItem = ({
   username,
   imageUrl,
   isLive,
+  isOnline
 }: UserItemProps) => {
   const pathname = usePathname();
 
@@ -57,6 +59,7 @@ export const UserItem = ({
             <LiveBadge className="ml-auto" />
           )}
         </div>
+        <div className="">{isOnline ? "isOnline": "offline"}</div>
       </Link>
     </Button>
   );

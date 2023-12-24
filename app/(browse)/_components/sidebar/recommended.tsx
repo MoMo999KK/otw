@@ -5,6 +5,8 @@ import { User } from "@prisma/client";
 import { useSidebar } from "@/store/use-sidebar";
 
 import { UserItem, UserItemSkeleton } from "./user-item";
+import { usePathname } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 interface RecommendedProps {
   data: (User & {
@@ -18,6 +20,9 @@ export const Recommended = ({
   const { collapsed } = useSidebar((state) => state);
 
   const showLabel = !collapsed && data.length > 0;
+  const { user } = useUser();
+  const pathName= usePathname()
+  const isOnline=user?.id !== null && pathName.startsWith("/")
 
   return (
     <div>
@@ -35,6 +40,7 @@ export const Recommended = ({
             username={user.username}
             imageUrl={user.imageUrl}
             isLive={user.stream?.isLive}
+            isOnline={isOnline}
           />
         ))}
       </ul>

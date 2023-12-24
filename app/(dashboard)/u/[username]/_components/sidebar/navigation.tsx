@@ -14,6 +14,9 @@ import { NavItem, NavItemSkeleton } from "./nav-item";
 export const Navigation = () => {
   const pathname = usePathname();
   const { user } = useUser();
+  
+  console.log("this is the user",user)
+  
 
   const routes = [
     {

@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCreatorSidebar } from "@/store/use-creator-sidebar";
+import { useUser } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 
 interface NavItemProps {
   icon: LucideIcon;
@@ -22,8 +24,13 @@ export const NavItem = ({
   isActive,
 }: NavItemProps) => {
   const { collapsed } = useCreatorSidebar((state) => state);
+  const { user } = useUser();
+  const pathName= usePathname()
+  const isOnline=user?.id !== null && pathName.startsWith("/")
 
   return (
+    <>
+    <p>{isOnline? `${user?.username} is online` : "isoffline"}</p>
     <Button
       asChild
       variant="ghost"
@@ -47,6 +54,7 @@ export const NavItem = ({
         </div>
       </Link>
     </Button>
+      </>
   );
 };
 

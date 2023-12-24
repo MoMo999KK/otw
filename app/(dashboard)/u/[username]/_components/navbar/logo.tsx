@@ -1,8 +1,13 @@
+
+"use client"
 import Link from "next/link";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
 
+
 import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -10,6 +15,9 @@ const font = Poppins({
 });
 
 export const Logo = () => {
+  const { user } = useUser();
+  const pathName= usePathname()
+  const isOnline=user?.id !== null && pathName.startsWith("/")
   return (
     <Link href="/">
       <div className="flex items-center gap-x-4 hover:opacity-75 transition">
@@ -26,7 +34,7 @@ export const Logo = () => {
           font.className
         )}>
           <p className="text-lg font-semibold">
-            Gamehub
+            {isOnline ?`${user?.username} isonline`:"is oflline"}
           </p>
           <p className="text-xs text-muted-foreground">
             Creator dashboard
